@@ -253,13 +253,15 @@ function endsWith(str, substr) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
+function formatTime(minutes, seconds) {
   // const minute = toString(minutes);
   // const second = toString(seconds);
   // return `${minute < 10 ? minute.padStart(1, '0') : minute}:${
   //   second < 10 ? second.padStart(1, '0') : second
   // }`;
-  throw new Error('Not implemented');
+  const minutesStr = String(minutes).length > 1 ? `${minutes}` : `0${minutes}`;
+  const secondsStr = String(seconds).length > 1 ? `${seconds}` : `0${seconds}`;
+  return `${minutesStr}:${secondsStr}`;
 }
 
 /**
@@ -348,7 +350,7 @@ function countVowels(str) {
  *   isPalindrome('No lemon, no melon') => true
  */
 function isPalindrome(str) {
-  const symbolsNotReplace = /[^A-Za-z0-9]/g;
+  const symbolsNotReplace = /[^A-Za-z]/g;
   const formatStr = str.toLowerCase().replace(symbolsNotReplace, '');
   const reverseStr = formatStr.split('').reverse().join('');
   return formatStr === reverseStr;
@@ -497,8 +499,15 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const original = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const encoded = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  return str.split('').reduce((acc, char) => {
+    if (original.includes(char)) {
+      return acc + encoded[original.indexOf(char)];
+    }
+    return acc + char;
+  }, '');
 }
 
 /**
