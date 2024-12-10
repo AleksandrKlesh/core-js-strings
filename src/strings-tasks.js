@@ -525,8 +525,21 @@ function encodeToRot13(/* str */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const obj = {
+    '♣': 0,
+    '♦': 1,
+    '♥': 2,
+    '♠': 3,
+    A: 0,
+    J: 10,
+    Q: 11,
+    K: 12,
+  };
+  const suit = Number(obj[value.slice(-1)]);
+  const firstValue = value.slice(0, -1);
+  const num = Number(firstValue) ? Number(firstValue) - 1 : obj[firstValue];
+  return suit * 13 + num;
 }
 
 module.exports = {
